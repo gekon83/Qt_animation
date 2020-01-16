@@ -1,5 +1,6 @@
 #include "dialog.h"
 #include "ui_dialog.h"
+#include "myitem.h"
 
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
@@ -37,6 +38,14 @@ Dialog::Dialog(QWidget *parent)
     scene->addLine(leftLine, myPen);
     scene->addLine(rightLine, myPen);
     scene->addLine(bottomLine, myPen);
+
+    // adding items to the scene
+    int itemCount = 20;
+    for(int i = 0; i < itemCount; i++)
+    {
+        MyItem *item = new MyItem();
+        scene->addItem(item);
+    }
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), scene, SLOT(advance()));
