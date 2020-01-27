@@ -1,6 +1,5 @@
 #include "dialog.h"
 #include "ui_dialog.h"
-#include "myitem.h"
 
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
@@ -31,7 +30,8 @@ Dialog::Dialog(QWidget *parent)
     QLineF bottomLine(scene->sceneRect().bottomLeft(),
                       scene->sceneRect().bottomRight());
 
-
+    qDebug() << "width : " << scene->width();
+    qDebug() << "height: " << scene->height();
     QPen myPen = QPen(Qt::red);
 
     scene->addLine(topLine, myPen);
@@ -40,15 +40,21 @@ Dialog::Dialog(QWidget *parent)
     scene->addLine(bottomLine, myPen);
 
     // adding items to the scene
-    int itemCount = 20;
+    int itemCount = 1;
+    /*
     for(int i = 0; i < itemCount; i++)
     {
         MyItem *item = new MyItem();
         scene->addItem(item);
-    }
+    }/**/
+
+    MyItem *dupa = new MyItem();
+    scene->addItem(dupa);
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), scene, SLOT(advance()));
+    //connect(ui->pushButton_rotP, SIGNAL(clicked()), this->dupa, SLOT(doPublicCollision()));
+    //connect(ui->pushButton_rotP, SIGNAL(clicked()), this->dupa, )
     timer->start(100);
 }
 
@@ -57,3 +63,17 @@ Dialog::~Dialog()
     delete ui;
 }
 
+
+void Dialog::on_pushButton_rotP_clicked()
+{
+    //qDebug() << "warning";
+    //qDebug() << "this is PushButton" << dupa->test;
+    //qDebug() << "this is PushButton" << dupa->getAngle();
+    this->dupa->changeAngle(1);
+    //dupa->doCollision();
+}
+
+void Dialog::on_pushButton_rotN_clicked()
+{
+    dupa->changeAngle(-1);
+}
